@@ -5,8 +5,8 @@ import { loadGapiInsideDOM, gapi } from 'gapi-script';
   providedIn: 'root',
 })
 export class GmailService {
-  private clientId = 'CLIENT_ID';
-  private apiKey = 'API_KEY';
+  private clientId = process.env.GOOGLE_CLIENT_ID || 'your_client_id';
+  private apiKey = process.env.GOOGLE_API_KEY || 'your_api_key';
   private scopes = 'https://www.googleapis.com/auth/gmail.readonly';
 
   constructor() {

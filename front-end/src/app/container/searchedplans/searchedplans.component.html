@@ -1,0 +1,154 @@
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let item of data">
+    <div class="card">
+      <div class="card-images">
+        <img
+          [src]="'../../../assets/images/' + item.from.toLowerCase() + '.png'"
+          alt="Image of {{ item.from }}"
+          class="card-image"
+        />
+        <img
+          [src]="'../../../assets/images/' + item.to.toLowerCase() + '.png'"
+          alt="Image of {{ item.to }}"
+          class="card-image"
+        />
+      </div>
+      <div class="card-text">
+        <h2>{{ item.from }} to {{ item.to }}</h2>
+        <p>Explore the journey from {{ item.from }} to {{ item.to }}.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Base grid styling */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+    background-color: #f4f4f9;
+  }
+
+  .grid-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Card styling */
+  .card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Card images */
+  .card-images {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .card-image {
+    width: 48%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-image:hover {
+    opacity: 0.9;
+  }
+
+  /* Card text */
+  .card-text {
+    text-align: center;
+  }
+
+  .card-text h2 {
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .card-text p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      max-width: 350px;
+    }
+
+    .card-text h2 {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      padding: 15px;
+    }
+
+    .card-text h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      max-width: 100%;
+      padding: 15px;
+    }
+
+    .card-images {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card-image {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .card-text h2 {
+      font-size: 1.2rem;
+    }
+
+    .card-text p {
+      font-size: 1rem;
+    }
+  }
+</style>

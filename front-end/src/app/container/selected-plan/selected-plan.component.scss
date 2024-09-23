@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  // padding: 16px;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.header_design {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  display: block;
+  text-align: center;
+}
+
+.train-card {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.stepper_design {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .train-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 767px) {
+  .train-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header_design {
+    font-size: 20px;
+  }
+
+  .button-container {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,263 @@
+<div class="banner-container">
+  <img src="../../../assets/images/banner.png" alt="way" class="way-image" />
+  <button
+    *ngIf="!loggedIn"
+    (click)="signIn()"
+    class="top-right-button google-signin-btn"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png"
+      alt="Google logo"
+      class="google-logo"
+    />
+    Sign in with Google
+  </button>
+  <button
+    *ngIf="loggedIn"
+    (click)="signOut()"
+    class="top-right-button google-signin-btn"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png"
+      alt="Google logo"
+      class="google-logo"
+    />
+    Sign off from Google
+  </button>
+</div>
+
+<div class="example-container">
+  <!-- Search plan -->
+  <div class="form-container">
+    <form [formGroup]="loginForm" (submit)="submit()">
+      <div class="form-row">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Current Location</mat-label>
+          <mat-select formControlName="currentLocation">
+            <mat-option
+              *ngFor="let location of cities"
+              [value]="location?.name"
+            >
+              {{ location?.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              loginForm.controls['currentLocation']?.touched &&
+              loginForm.controls['currentLocation']?.invalid
+            "
+          >
+            Please select a location.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Travel Locations</mat-label>
+          <mat-select formControlName="travelLocations" multiple>
+            <mat-option
+              *ngFor="let location of cities"
+              [value]="location?.name"
+            >
+              {{ location?.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              loginForm.controls['travelLocations']?.touched &&
+              loginForm.controls['travelLocations']?.invalid
+            "
+          >
+            Please select at least one travel location.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="submit_button_one">
+        <button
+          class="button-raised"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          Create plan
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Plan suggested -->
+  <app-current-root
+    [data]="selectedPlan"
+    [openBottomSheet]="openBottomSheet"
+    [bottomSheet]="bottomSheet"
+  ></app-current-root>
+  <span *ngIf="selectedPlan?.length" class="header_design"
+    >Detailed overview of plan</span
+  >
+  <div class="actual_width_screen" *ngIf="selectedPlan.length">
+    <app-selected-plan [data]="selectedPlan"></app-selected-plan>
+  </div>
+
+  <!-- Additional plans section -->
+  <div *ngIf="otherPlans.length" class="plans-section">
+    <span class="header_design">More plans</span>
+    <app-table [data]="otherPlans"></app-table>
+  </div>
+
+  <!-- <span class="header_design">Most searched Plans</span>
+  <app-searchedplans [data]="commonSearchTravels"></app-searchedplans> -->
+</div>
+
+<style>
+  .header_design {
+    font-weight: bold;
+    color: #3f51b5;
+    font-size: 25px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .banner-container {
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .way-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .top-right-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    padding: 12px 24px;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #f6f6f6;
+    width: 100%;
+  }
+  .actual_width_screen {
+    width: 100%;
+  }
+  .form-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    /* margin-bottom: 40px; */
+  }
+
+  .form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .form-field {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .submit_button_one {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .button-raised {
+    width: 100%;
+    padding: 16px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-raised:hover {
+    background-color: #3f51b5;
+  }
+
+  .plans-section {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    /* padding-right: 7%; */
+
+    margin-bottom: 30px;
+  }
+  .google-signin-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    background-image: url(../../../assets/images/banner.png);
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+  }
+
+  .google-signin-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #757575;
+    border: 1px solid #dadce0;
+    padding: 0 16px;
+    height: 45px; /* Increased height for better visual presence */
+    border-radius: 6px; /* Slightly rounded corners for a modern look */
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 320px; /* Slightly wider max width */
+  }
+
+  .google-signin-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02); /* Subtle zoom effect on hover */
+  }
+
+  .google-signin-btn:active {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .google-logo {
+    height: 20px;
+    width: 20px; /* Increased logo size */
+    margin-right: 10px; /* More space between logo and text */
+  }
+
+  @media (max-width: 768px) {
+    .google-signin-btn {
+      width: 100%;
+      max-width: 100%; /* Ensures full width on smaller screens */
+    }
+
+    .google-signin-wrapper {
+      padding: 10px; /* Reduced padding for smaller screens */
+    }
+  }
+</style>

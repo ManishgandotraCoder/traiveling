@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="stepper_design">
+    <mat-stepper orientation="vertical" #stepper>
+      <mat-step *ngFor="let plan of data; let i = index">
+        <form>
+          <ng-template matStepLabel>
+            From {{ plan.departurePlace }} to {{ plan.arrivalPlace }}
+          </ng-template>
+
+          <div>
+            <mat-card class="train-card">
+              <mat-card-header>
+                <mat-card-title>Train ID: {{ plan.trainID }}</mat-card-title>
+                <mat-card-subtitle>
+                  Train Name: {{ plan.trainName }}
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <p><strong>Price:</strong> {{ plan.price }}</p>
+                <p>
+                  <strong>Time:</strong> {{ plan.departureDateTime }} -
+                  {{ plan.arrivalDateTime }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+
+            <div class="button-container">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done with all your travel plans.</p>
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            matStepperNext
+          >
+            Close
+          </button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

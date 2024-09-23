@@ -1,0 +1,212 @@
+<div class="head_plan" *ngIf="data.length">
+  <div class="best_plan_created_up">Root of Plan</div>
+
+  <div class="journey-timeline-container-wrapper">
+    <div
+      *ngFor="let plan of cities; let last = last; let i = index"
+      class="journey-point"
+    >
+      <div
+        class="time-point"
+        [ngClass]="{ 'first-point': i === 0, 'last-point': last }"
+      >
+        <!-- Unified block for the first point -->
+        <div *ngIf="i === 0" class="point-details first">
+          <span class="time"> {{ plan.city }}</span
+          ><br />
+          <span class="location">{{ plan.date }}</span>
+        </div>
+
+        <!-- For subsequent points, only show the arrival details -->
+        <div *ngIf="i > 0" class="point-details">
+          <span class="time">→ {{ plan.city }}</span
+          ><br />
+          <span class="location">{{ plan.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="best_plan_created_down">
+    <span class="selected_cursor" (click)="openEditPlan()"
+      >Create Your Own Plan</span
+    >
+  </div>
+</div>
+
+<style>
+  /* Base styling for desktop */
+  .best_plan_created_up,
+  .best_plan_created_down {
+    background-color: #283593;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .best_plan_created_down {
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .head_plan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .journey-timeline-container-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 10px 0;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .time-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    padding: 10px;
+    flex-shrink: 0;
+  }
+
+  .time {
+    font-weight: bold;
+    color: #3f51b5;
+    font-size: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  .location {
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+  }
+
+  .selected_cursor {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f1f1f1;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .selected_cursor:hover {
+    color: #ffca28;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .best_plan_created_up,
+    .best_plan_created_down {
+      font-size: 16px;
+      padding: 10px;
+      width: calc(100% - 40px);
+    }
+
+    .journey-timeline-container-wrapper {
+      flex-direction: column;
+      padding: 15px;
+      gap: 15px;
+      max-width: 100%;
+      overflow-x: visible;
+    }
+
+    .time-point {
+      width: 100%;
+      text-align: center;
+    }
+
+    .time {
+      font-size: 18px;
+    }
+
+    .location {
+      font-size: 14px;
+    }
+  }
+
+  /* Tablet (768px - 1024px) specific changes */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .best_plan_created_up,
+    .best_plan_created_down {
+      font-size: 17px;
+      padding: 12px;
+    }
+
+    .journey-timeline-container-wrapper {
+      flex-wrap: wrap; /* Allows items to wrap in multiple rows */
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      max-width: 100%;
+      overflow-x: visible;
+    }
+
+    .time-point {
+      width: 250px; /* Slightly larger width for better visibility on tablets */
+      text-align: center;
+    }
+
+    .time {
+      font-size: 18px;
+    }
+
+    .location {
+      font-size: 15px;
+    }
+  }
+
+  /* For extra small screens (e.g., mobile devices under 480px) */
+  @media (max-width: 480px) {
+    .best_plan_created_up,
+    .best_plan_created_down {
+      font-size: 14px;
+    }
+
+    .time {
+      font-size: 16px;
+    }
+
+    .location {
+      font-size: 12px;
+    }
+
+    .time-point {
+      padding: 10px 0;
+    }
+  }
+
+  /* Larger screens for optimal display */
+  @media (min-width: 1024px) {
+    .journey-timeline-container-wrapper {
+      gap: 40px;
+      padding: 30px;
+    }
+
+    .time-point {
+      min-width: 250px;
+    }
+  }
+</style>
